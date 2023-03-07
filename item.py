@@ -54,7 +54,7 @@ class Item:
         return f'{self.__product}'
 
 class Phone(Item):
-        def __init__(self, product: str, quanity: int, price: int, number_of_sim ):
+        def __init__(self, product: str, quanity: int, price: int, number_of_sim: int ):
             super(). __init__(product, quanity, price)
             self.number_of_sim = number_of_sim
 
@@ -72,7 +72,7 @@ class Phone(Item):
             self.number_of_sim = name
         def __add__(self, other):
             """Проверка возможности сложения"""
-            if not isinstance(other. Item):
+            if not isinstance(other, Phone ):
                 raise ValueError('Складывать можно только объекты Item и дочерние от них.')
             return True
 

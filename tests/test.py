@@ -1,5 +1,5 @@
-import pytest
-from item import Item
+import pytest, pytest_cov
+from item import Item, Phone
 
 
 # item = Item("Смартфон", 20, 10000)
@@ -37,3 +37,14 @@ def test_repr():
 def test_str():
     item6 = Item('kkk', 80, 33)
     assert item6.__str__() == "kkk"
+
+def test_init_phone():
+   phone = Phone("Смартфон", 20, 10000, 2)
+   assert phone.number_of_sim == 2
+
+def test_quantity_sim():
+    phone7 = Phone('eee', 1000, 10, 2)
+    assert phone7.quantity_sim  == 2
+
+    with pytest.raises(Exception):
+        assert phone7.quantity_sim("a")
