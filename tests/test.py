@@ -1,5 +1,5 @@
 import pytest
-from item import Item
+from item import Item, Phone
 
 
 # item = Item("Смартфон", 20, 10000)
@@ -30,10 +30,39 @@ def test_long_name():
 
     with pytest.raises(Exception):
         assert item7.long_name("aaaaaaaaaaa")
+
+
 def test_repr():
     item5 = Item('sos', 30, 6)
-    assert  item5.__repr__() == "Item('sos', '30', '6,)"
+    assert item5.__repr__() == "Item('sos', '30', '6,)"
+
 
 def test_str():
     item6 = Item('kkk', 80, 33)
     assert item6.__str__() == "kkk"
+
+
+def test_init_phone():
+    phone = Phone("Смартфон", 20, 10000, 2)
+    assert phone.number_of_sim == 2
+
+
+def test_quantity_sim():
+    phone7 = Phone('eee', 1000, 10, 2)
+    with pytest.raises(Exception):
+        assert phone7.quantity_sim("a")
+    assert phone7.number_of_sim == 2
+
+
+def test_add():
+    phone7 = Phone('eee', 1000, 10, 2)
+    item7 = Item('eee', 100, 10)
+    assert phone7 + item7 == 1100
+
+    class Book:
+        def __init__(self, quanity):
+            self.quanity = quanity
+
+    book = Book(2)
+    with pytest.raises(ValueError):
+        assert phone7 + book
