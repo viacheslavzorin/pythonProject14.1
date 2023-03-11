@@ -33,13 +33,13 @@ print(Item.is_integer(5.5))
 if __name__ == '__main__':
     item1 = Item("Смартфон", 10000, 20)
     print(item1)
-#item1 = Item("Смартфон", 10000, 20)
+# item1 = Item("Смартфон", 10000, 20)
 item1
 print(item1)
 # смартфон iPhone 14, цена 120_000, количетсво товара 5, симкарт 2
 phone1 = Phone("iPhone 14", 120_000, 5, 2)
 print(phone1)
-#iPhone 14
+# iPhone 14
 print(repr(phone1))
 Phone('iPhone 14', 120000, 5, 2)
 phone1.quantity_sim = 0
