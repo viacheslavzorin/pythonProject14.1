@@ -1,5 +1,5 @@
 import pytest
-from item import Item, Phone
+from item import Item, Phone, Keyboard
 
 
 # item = Item("Смартфон", 20, 10000)
@@ -66,3 +66,9 @@ def test_add():
     book = Book(2)
     with pytest.raises(ValueError):
         assert phone7 + book
+
+def test_change_lang():
+    item1 = Keyboard("Клавиатура", 100, 5)
+    assert item1.language == "EN"
+    item1.change_lang()
+    assert item1.language == "RU"

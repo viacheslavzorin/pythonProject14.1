@@ -42,6 +42,6 @@ print(phone1)
 # iPhone 14
 print(repr(phone1))
 Phone('iPhone 14', 120000, 5, 2)
-#print(phone1.quantity_sim)
+# print(phone1.quantity_sim)
 phone1.quantity_sim = 0
 Phone('iPhone 14', 120000, 5, 2)

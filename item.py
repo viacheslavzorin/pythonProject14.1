@@ -63,6 +63,7 @@ class Item:
     def __str__(self):
         return f'{self.__product}'
 
+
 class Phone(Item):
     def __init__(self, product: str, quanity: int, price: int, number_of_sim: int):
         super().__init__(product, quanity, price)
@@ -89,21 +90,24 @@ class Phone(Item):
             raise ValueError('Складывать можно только объекты Item и дочерние от них.')
         return self.quanity + other.quanity
 
+
 class Mixinlog:
     """Язык клавиатуры"""
 
-    def __init__(self, product: str, quanity: int, price: int, language='EN'):
-        self.language = language
+    def __init__(self, *args):
+        self._language = "EN"
         self.d = "RU"
-        super().__init__(product, quanity, price)
+        super().__init__(*args)
 
     def change_lang(self):
-        a = self.language
-        self.language = self.d
+        a = self._language
+        self._language = self.d
         self.d = a
+
     @property
     def language(self):
-        return self.language
+        return self._language
+
 
 class Keyboard(Mixinlog, Item):
     """Класс клавиатуры"""
