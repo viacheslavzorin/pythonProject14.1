@@ -3,10 +3,12 @@ import csv
 
 class Item:
     instances = []
+
     num_of_item = 0
     pay_rate = 0.85
 
     def __init__(self, product: str, quanity: int, price: int):
+        # super().__init__()
         self.__product = product
         self.quanity = quanity
         self.price = price
@@ -61,11 +63,12 @@ class Item:
     def __str__(self):
         return f'{self.__product}'
 
-
 class Phone(Item):
     def __init__(self, product: str, quanity: int, price: int, number_of_sim: int):
         super().__init__(product, quanity, price)
         self.number_of_sim = number_of_sim
+
+    """Проверка количества sim карт"""
 
     @property
     def quantity_sim(self):
@@ -85,3 +88,23 @@ class Phone(Item):
         if not isinstance(other, Item):
             raise ValueError('Складывать можно только объекты Item и дочерние от них.')
         return self.quanity + other.quanity
+
+class Mixinlog:
+    """Язык клавиатуры"""
+
+    def __init__(self, product: str, quanity: int, price: int, language='EN'):
+        self.language = language
+        self.d = "RU"
+        super().__init__(product, quanity, price)
+
+    def change_lang(self):
+        a = self.language
+        self.language = self.d
+        self.d = a
+    @property
+    def language(self):
+        return self.language
+
+class Keyboard(Mixinlog, Item):
+    """Класс клавиатуры"""
+    pass
