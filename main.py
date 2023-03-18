@@ -1,4 +1,4 @@
-from item import Item, Phone
+from item import Item, Phone, Keyboard, Mixinlog
 
 item1 = Item("Смартфон", 20, 10000)
 item2 = Item("Ноутбук", 5, 20000)
@@ -42,4 +42,6 @@ print(phone1)
 # iPhone 14
 print(repr(phone1))
 Phone('iPhone 14', 120000, 5, 2)
+# print(phone1.quantity_sim)
 phone1.quantity_sim = 0
+Phone('iPhone 14', 120000, 5, 2)
