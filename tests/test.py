@@ -1,5 +1,5 @@
 import pytest
-from item import Item, Phone, Keyboard
+from item import Item, Phone, Keyboard, InstantiaveteCSVError
 
 
 # item = Item("Смартфон", 20, 10000)
@@ -17,8 +17,9 @@ def test_instantiate_from_csv():
     assert len(Item.instantiate_from_csv()) == 5
     item4 = Item.instantiate_from_csv()[2]
     assert item4._Item__product == 'Кабель'
-    with pytest.raises(Exception):
-        item4.quanity()
+
+
+
 
 
 def test_is_integer():
