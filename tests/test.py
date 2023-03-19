@@ -14,12 +14,9 @@ def test_apply_discount():
 
 
 def test_instantiate_from_csv():
-    assert len(Item.instantiate_from_csv()) == 5
-    item4 = Item.instantiate_from_csv()[2]
+    assert len(Item.instantiate_from_csv('items.csv')) == 5
+    item4 = Item.instantiate_from_csv('items.csv')[2]
     assert item4._Item__product == 'Кабель'
-
-
-
 
 
 def test_is_integer():
@@ -76,3 +73,8 @@ def test_change_lang():
     assert item1.language == "EN"
     item1.change_lang()
     assert item1.language == "RU"
+
+
+def test_instantiate_from_csv_Exception():
+    with pytest.raises(FileNotFoundError):
+        assert Item.instantiate_from_csv("iii")

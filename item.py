@@ -1,4 +1,4 @@
-import csv
+import csv, os
 
 
 class Item:
@@ -24,11 +24,13 @@ class Item:
         return self.price
 
     @classmethod
-    def instantiate_from_csv(cls):
+    def instantiate_from_csv(cls, data):
         """Метод инициализации из csv-файла"""
+        if not os.path.isfile("items.csv"):
+            raise FileNotFoundError("файл отсутствует")
         results = []
         try:
-            with open('items.csv', encoding='windows - 1251') as csvfile:
+            with open(data, encoding='windows - 1251') as csvfile:
                 reader = csv.DictReader(csvfile)
                 for row in reader:
                     if type(row) is dict:
@@ -39,8 +41,8 @@ class Item:
                         results.append(cls(__product, quanity, price))
                     else:
                         raise InstantiaveteCSVError("Файл повреждён")
-        except FileNotFoundError:
-            raise FileNotFoundError("Отсутствует item.csv файл")
+        except InstantiaveteCSVError:
+            raise InstantiaveteCSVError("повреждён item.csv файл")
         return results
 
     @staticmethod
