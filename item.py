@@ -25,14 +25,22 @@ class Item:
 
     @classmethod
     def instantiate_from_csv(cls):
+        """Метод инициализации из csv-файла"""
         results = []
-        with open('items.csv', encoding='windows - 1251') as csvfile:
-            reader = csv.DictReader(csvfile)
-            for row in reader:
-                __product = row['name']
-                price = cls.is_integer(int(row['price']))
-                quanity = cls.is_integer(int(row['quantity']))
-                results.append(cls(__product, quanity, price))
+        try:
+            with open('items.csv', encoding='windows - 1251') as csvfile:
+                reader = csv.DictReader(csvfile)
+                for row in reader:
+                    if type(row) is dict:
+
+                        __product = row['name']
+                        price = cls.is_integer(int(row['price']))
+                        quanity = cls.is_integer(int(row['quantity']))
+                        results.append(cls(__product, quanity, price))
+                    else:
+                        raise InstantiaveteCSVError("Файл повреждён")
+        except FileNotFoundError:
+            raise FileNotFoundError("Отсутствует item.csv файл")
         return results
 
     @staticmethod
@@ -112,3 +120,11 @@ class Mixinlog:
 class Keyboard(Mixinlog, Item):
     """Класс клавиатуры"""
     pass
+
+
+class InstantiaveteCSVError(Exception):
+    def __init__(self, *args, **kwargs):
+        self.message = args[0] if args else 'Файл Items.csv поврежден'
+
+    def __str__(self):
+        return self.message

@@ -14,7 +14,7 @@ print(item2.price)
 print(Item.instances)
 
 Item.instantiate_from_csv()  # создание объектов из данных файла
-
+print(Item.instantiate_from_csv())
 print(len(Item.instantiate_from_csv()))
 item1 = Item.instantiate_from_csv()[0]
 

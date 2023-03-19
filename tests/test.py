@@ -17,6 +17,8 @@ def test_instantiate_from_csv():
     assert len(Item.instantiate_from_csv()) == 5
     item4 = Item.instantiate_from_csv()[2]
     assert item4._Item__product == 'Кабель'
+    with pytest.raises(Exception):
+        item4.quanity()
 
 
 def test_is_integer():
@@ -66,6 +68,7 @@ def test_add():
     book = Book(2)
     with pytest.raises(ValueError):
         assert phone7 + book
+
 
 def test_change_lang():
     item1 = Keyboard("Клавиатура", 100, 5)
