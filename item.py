@@ -26,7 +26,9 @@ class Item:
     @classmethod
     def instantiate_from_csv(cls, data):
         """Метод инициализации из csv-файла"""
-        if not os.path.isfile("items.csv"):
+        try:
+            os.path.isfile("../items.csv")
+        except  FileNotFoundError:
             raise FileNotFoundError("файл отсутствует")
         results = []
         try:
@@ -106,13 +108,13 @@ class Mixinlog:
 
     def __init__(self, *args):
         self._language = "EN"
-        self.d = "RU"
+        self.second_language = "RU"
         super().__init__(*args)
 
     def change_lang(self):
-        a = self._language
-        self._language = self.d
-        self.d = a
+        first_language = self._language
+        self._language = self.second_language
+        self.d = first_language
 
     @property
     def language(self):
