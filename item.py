@@ -1,4 +1,4 @@
-import csv
+import csv, os
 
 
 class Item:
@@ -24,15 +24,27 @@ class Item:
         return self.price
 
     @classmethod
-    def instantiate_from_csv(cls):
+    def instantiate_from_csv(cls, data):
+        """Метод инициализации из csv-файла"""
+        try:
+            os.path.isfile("../items.csv")
+        except  FileNotFoundError:
+            raise FileNotFoundError("файл отсутствует")
         results = []
-        with open('items.csv', encoding='windows - 1251') as csvfile:
-            reader = csv.DictReader(csvfile)
-            for row in reader:
-                __product = row['name']
-                price = cls.is_integer(int(row['price']))
-                quanity = cls.is_integer(int(row['quantity']))
-                results.append(cls(__product, quanity, price))
+        try:
+            with open(data, encoding='windows - 1251') as csvfile:
+                reader = csv.DictReader(csvfile)
+                for row in reader:
+                    if type(row) is dict:
+
+                        __product = row['name']
+                        price = cls.is_integer(int(row['price']))
+                        quanity = cls.is_integer(int(row['quantity']))
+                        results.append(cls(__product, quanity, price))
+                    else:
+                        raise InstantiaveteCSVError("Файл повреждён")
+        except InstantiaveteCSVError:
+            raise InstantiaveteCSVError("повреждён item.csv файл")
         return results
 
     @staticmethod
@@ -96,13 +108,13 @@ class Mixinlog:
 
     def __init__(self, *args):
         self._language = "EN"
-        self.d = "RU"
+        self.second_language = "RU"
         super().__init__(*args)
 
     def change_lang(self):
-        a = self._language
-        self._language = self.d
-        self.d = a
+        first_language = self._language
+        self._language = self.second_language
+        self.d = first_language
 
     @property
     def language(self):
@@ -112,3 +124,11 @@ class Mixinlog:
 class Keyboard(Mixinlog, Item):
     """Класс клавиатуры"""
     pass
+
+
+class InstantiaveteCSVError(Exception):
+    def __init__(self, *args, **kwargs):
+        self.message = args[0] if args else 'Файл Items.csv поврежден'
+
+    def __str__(self):
+        return self.message
